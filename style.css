@@ -330,14 +330,6 @@ li.tweet{
  h1.js-overlay-start {
    cursor: pointer;
  }
-  .video .wrapper {
-    background: url(https://tvseriescritic.files.wordpress.com/2016/10/stranger-things-bicycle-lights-children.jpg) center/cover no-repeat;
-  }
-  .video .wrapper:hover .menu-content span {
-    -webkit-transform: translate(-50%, -10px);
-            transform: translate(-50%, -10px);
-    opacity: 1;
-  }
   .video .header {
     color: #fff;
     padding: 1em;
@@ -393,7 +385,7 @@ li.tweet{
     background: rgba(0, 0, 0, .7);
     z-index: 999999;
   }
-  .o1 {
+  .overlay-main {
     opacity: 1;
     -ms-transition: opacity 600ms ease-out;
     transition: opacity 600ms ease-out;
@@ -431,9 +423,6 @@ li.tweet{
     height: 40px;
     width: 40px;
     background-size: 40px;
-    @media (max-width: 767px) and (orientation: landscape) {
-      display: none;
-    }
   }
 
   .start {
