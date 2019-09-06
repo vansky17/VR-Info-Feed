@@ -1,10 +1,10 @@
-/* * {
-  box-sizing: border-box;
-} */
 /* Header */
+nav{
+  display: none;
+}
 header {
   padding: 10% 2%;
-  background: linear-gradient( rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.9) ),
+  background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9) ),
    url(https://images.pexels.com/photos/1036642/pexels-photo-1036642.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260) repeat;
   color: white;
   background-size: cover;
@@ -14,20 +14,55 @@ header h1 {
   font-size: 4em;
   font-family: 'Orbitron', sans-serif;
   text-align: center;
+  margin-top: 1.4em;
+  color:steelblue;
+  text-shadow:  0 0 1em steelblue;
 }
-/* header buttons */
-.tab-group {
-  text-align: center;
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0 0 40px 0;
-}
+/* buttons */
 .buttons {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  width: 30%;
+  margin: 0 auto;
 }
-
+button {
+  background: transparent;
+  box-shadow: inset 0 0 7px #B2B4B5;
+  padding: 0.2em 0 0.2em;
+  color: #B2B4B5;
+  cursor: pointer;
+  font-size: 1.5em;
+  width: 40%;
+  border: none;
+  outline: none;
+  transition: all ease-in 0.3s;
+  font-family: 'Orbitron';
+}
+button:hover{
+  color:steelblue;
+}
+.topic-selected {
+  box-shadow: inset 0 0 17px steelblue;
+  color: steelblue;
+}
+footer button {
+  width: 35%;
+  padding: 0.7em 0.3em;
+  margin: 3.5em auto;
+  box-shadow: inset 0 0 25px steelblue;
+  color:white;
+}
+footer button:hover {
+  box-shadow: inset 0 0 40px steelblue;
+}
+footer button a:hover {
+  color:steelblue;
+}
+footer button a{
+  text-decoration: none;
+  color: white;
+}
+/* Main */
 h1 {
   font-size: 1.5em;
   color: white;
@@ -44,7 +79,6 @@ h1 {
 #results, #results-youtube{
   min-width:37%;
   max-width:37%;
-  /* background: #333641; */
   background: lightgray;
 }
 #results {
@@ -61,15 +95,14 @@ h1 {
 }
 #results-tweets h2{
   font-family: 'Orbitron', sans-serif;
+  padding-left: .5em;
+  padding-right: .5em;
 }
 #results-list, #results-list-youtube {
   padding:0;
 }
+/* Tweets */
 #tweets {
-    /* display: flex;
-    flex-wrap: wrap;
-    padding-left:0;
-    justify-content: space-between; */
     margin-top: 3em;
     padding:0;
 }
@@ -82,7 +115,6 @@ li.tweet{
     flex: 1 0 29%;
     min-width:29%;
     background:white;
-    /* max-width: 500px; */
 }
 .tweet-header {
     display: flex;
@@ -94,7 +126,6 @@ li.tweet{
     border-radius: 50%;
     height: 36px;
 }
-
 .icon--twitter {
     width: 2em;
     background-image: url(img/twitter.png);
@@ -124,15 +155,7 @@ li.tweet{
 }
 .TweetAuthor-name {
     text-overflow: ellipsis;
-    white-space: nowrap;
     padding-right: 4px;
-    overflow: hidden;
-}
-.TweetAuthor-screenName {
-    font-size: 14px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex-shrink: 1;
     overflow: hidden;
 }
 .Identity-name {
@@ -144,7 +167,6 @@ li.tweet{
 .link-to {
     text-decoration:none;
     color: black;
-
 }
 .link-to:visited, .link-to:hover, .link-to:active {
     text-decoration:none;
@@ -160,8 +182,7 @@ li.tweet{
     color: rgb(105, 120, 130);
     font-size: 0.9em;
 }
-
-/* VR News */
+/* Press News */
 .card {
     float: left;
     padding-left: 1em;
@@ -241,10 +262,6 @@ li.tweet{
     height: 70px;
     margin: 0;
   }
-  
-  .news .wrapper {
-    /* background: url(https://techcrunch.com/wp-content/uploads/2019/08/The-Void-Curtis-Hickman.png?w=574) 20% 1%/cover no-repeat; */
-  }
   .news .date {
     position: absolute;
     top: 0;
@@ -261,9 +278,6 @@ li.tweet{
     font-weight: 700;
     font-size: 1.1em;
     text-shadow: 2px 3px 2px rgba(0, 0, 0, 0.18);
-  }
-  .news .date .month {
-    text-transform: uppercase;
   }
   .news .date .month,
   .news .date .year {
@@ -312,7 +326,7 @@ li.tweet{
     top: -10px;
   }
 
-  /* VR Videos */
+  /* YouTube Videos */
  h1.js-overlay-start {
    cursor: pointer;
  }
@@ -351,11 +365,6 @@ li.tweet{
     transition: all 0.3s;
     opacity: 0;
   }
- /*  .video .data {
-    color: #fff;
-    -webkit-transform: translateY(calc(70px + 4em));
-            transform: translateY(calc(70px + 4em));
-  } */
   .video .video-data {
     color: #fff;
     background: rgba(0, 0, 0, .7);
@@ -369,7 +378,6 @@ li.tweet{
     text-decoration: none;
   }
   
-/* overlay youtube */
   .overlay-video {
     display: none;
     opacity: 0;
@@ -385,15 +393,13 @@ li.tweet{
     background: rgba(0, 0, 0, .7);
     z-index: 999999;
   }
-  
   .o1 {
     opacity: 1;
     -ms-transition: opacity 600ms ease-out;
     transition: opacity 600ms ease-out;
     -ms-transition: opacity .6s;
     transition: opacity .6s;
-  }
-  
+  } 
   .videoWrapperExt {
     position: relative;
     top: 50%;
@@ -402,25 +408,21 @@ li.tweet{
     transform: translate(-50%, -50%);
     max-width: 982px;
     padding: 0 20px;
-  }
-  
+  }  
   .videoWrapper {
     position: relative;
     padding-bottom: 56.25%;
-    /* 16:9 */
     height: 0;
-  }
-  
+  } 
   .videoWrapper iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-  }
-  
+  } 
   .close {
-   background-image:url(http://djit.ac/assets/images/news/mark.png);
+   background-image:url(img/mark.png);
     position: absolute;
     top: -50px;
     right: 0px;
@@ -433,16 +435,15 @@ li.tweet{
       display: none;
     }
   }
-  
-  
-  /* demo purpose */
+
   .start {
     margin-top: 4em;  
     text-align:center;
     font-size:40px;
     text-decoration:underline;
-    color:blue;text-transform:uppercase;cursor:pointer;}
-
+    color:transparent;
+    cursor:pointer;
+  }
   .play { 
     background: darkred;
     border-radius: 50% / 10%;
@@ -456,12 +457,10 @@ li.tweet{
     text-indent: 0.1em;
     transition: all 150ms ease-out;
     width: 4em;
-  }
-  
+  } 
   .play:hover {
     background: steelblue;
   }
-  
   .play::before { 
     background: inherit;
     border-radius: 5% / 50%;
@@ -472,7 +471,6 @@ li.tweet{
     right: -5%;
     top: 9%;
   }
-  
   .play::after {
     border-style: solid;
     border-width: 1em 0 1em 1.732em;
@@ -485,4 +483,149 @@ li.tweet{
     position: absolute;
     width: 0;
   }
- /*   */
+
+  /* Footer */
+footer {
+  display: flex;
+  background:
+  linear-gradient(
+    rgba(0, 0, 0, 0.7), 
+    rgba(0, 0, 0, 0.85)
+  ),  
+    url(https://cdn.pixabay.com/photo/2017/09/05/10/07/office-2717006_960_720.jpg) repeat; 
+    color: white;
+    background-size: cover;
+    background-position: center; 
+  }
+ 
+  /* Animations */
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.slideDown {
+animation-name: slideDown;
+animation-duration: 1s;
+}
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0);
+  }
+}
+.slideUp {
+animation-name: slideUp;
+animation-duration: 1.2s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  animation-duration: 2s;
+}
+ /* Responsive */
+  @media screen and (max-width:800px){
+  .container {
+    flex-direction: column;
+  }
+  #results, #results-youtube, #results-tweets {
+    min-width: 100%;
+    max-width: 100%
+  }
+  #results {
+    border: none;
+  }
+  header h1 {
+    font-size: 2.5em;
+  }
+  h1 {
+    font-size: 1.2em;
+  }
+  section h2 {
+    margin-top: 2.7em;
+  }
+  /* Menu */
+  nav {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 1% 0;
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+  .mobile-menu ul {
+    display: flex;
+    justify-content: space-around;
+    padding-left: 0    
+  }
+  .mobile-menu ul li {
+    display: flex;
+    list-style-type: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1em;
+  }
+  .mobile-menu ul li a,
+  .mobile-menu ul li a:visited{
+    text-decoration: none;
+    font-weight: 700;
+    color: steelblue;
+    text-shadow:  0 0 1rem steelblue;
+  }
+  .buttons {
+    width: 60%;
+  }
+  button {
+    font-size: 1.1em;
+  }
+  /* back top top */
+  .back-to-top {
+    display: none;
+  } 
+  a.back-to-top{
+    display: none;
+    visibility: hidden;
+  } 
+  footer button a{
+    font-size: .9em;
+  }
+}
+@media screen and (min-width:800px){
+  /* back top top */
+  a.back-to-top {
+    background: rgba(0,0,0,0.8);
+    position: fixed;
+    color: steelblue;
+    text-shadow: 2px 2px 1em steelblue;
+    bottom: 20px;
+    right: 20px;
+    padding: 1em;
+    font-size: 1.2em;
+    font-family: 'Arial';
+  }
+} 
+@media screen and (max-width:1200px){
+  #tweets {
+    font-size: .85em;
+  }
+}
+

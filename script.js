@@ -35,10 +35,11 @@ function displayResults(responseJson, maxResults) {
  
   for (let i = 0; i < responseJson.articles.length & i<maxResults ; i++){  
     let articleDate = parseDate(responseJson.articles[i].publishedAt);
+    let articleImage = responseJson.articles[i].urlToImage || 'https://cdn.pixabay.com/photo/2016/12/16/13/50/vr-1911451_960_720.png';
     $('#results-list').append(
       `<a href="${responseJson.articles[i].url}" target="_blank">
-        <div class="news card">
-        <div class="wrapper" style="background: url(${responseJson.articles[i].urlToImage}) 20% 1%/cover no-repeat;">
+        <div class="news card wow fadeIn">
+        <div class="wrapper" style="background: url(${articleImage}) 20% 1%/cover no-repeat;">
         <div class="date">
         <span class="year">Published:</span>
           <span class="day">${articleDate}</span>          
@@ -86,8 +87,8 @@ function getNews(query, maxResults=10) {
 }
 
 /* youtube videos start here */
-/* const apiKeyYoutube = 'AIzaSyCmJ0Aj5Zz1_y4HnwfJQTeiLoF3xCZB2rs'; */ 
-const apiKeyYoutube = 'AIzaSyCGrSh8nORJAZJVTb_ICGZbKONEgTQSelY'; 
+ const apiKeyYoutube = 'AIzaSyCmJ0Aj5Zz1_y4HnwfJQTeiLoF3xCZB2rs';  
+/* const apiKeyYoutube = 'AIzaSyCGrSh8nORJAZJVTb_ICGZbKONEgTQSelY';  */
 const searchURLYoutube = 'https://www.googleapis.com/youtube/v3/search';
 
 function displayVideos(responseJson) {
@@ -96,7 +97,7 @@ function displayVideos(responseJson) {
   for (let i = 0; i < responseJson.items.length; i++){
     let videoDate = parseDate(responseJson.items[i].snippet.publishedAt);
     $('#results-list-youtube').append(
-      `<div class="video card">
+      `<div class="video card wow fadeIn">
         <div class="wrapper" style="background: url(${responseJson.items[i].snippet.thumbnails.high.url}) center/cover no-repeat">
           <div class="header">
             <div class="date">
@@ -216,11 +217,15 @@ function handleTweetData(tweets) {
   $('#tweets').empty(); 
   console.log(tweets)
   for (let i = 0; i < tweets.length; i++){
+    let s = tweets[i].created_at; 
+    var tweeterDate = jQuery.trim(s).substring(0, 20)
+    .split(" ").slice(0, -1).join(" ");
+
     $('#tweets').append(
-      `<li class="tweet">
+      `<li class="tweet wow slideDown">
           <a class="link-to" href="https://twitter.com/${tweets[i].user.id}/status/${tweets[i].id_str}" target="_blank">
             <div class="tweet-header">
-              <img class="avatar" src="${tweets[i].user.profile_image_url}" alt="avatar">
+              <img class="avatar" src="${tweets[i].user.profile_image_url_https}" alt="avatar">
               <div class="TweetAuthor-nameScreenNameContainer">
                 <span class="TweetAuthor-decoratedName">
                 <span class="TweetAuthor-name Identity-name customisable-highlight">${tweets[i].user.name}</span>
@@ -230,36 +235,82 @@ function handleTweetData(tweets) {
               <div class="icon--twitter"></div>
             </div>
             <p class="tweet-text">${tweets[i].text}</p>
-            <div class="TweetInfo-timeGeo">${tweets[i].created_at}</div>
+            <div class="TweetInfo-timeGeo">${tweeterDate}</div>
           </a>
       </li>`
     );
   }
 }
+/* Back to top implementation */
+function scrollBack() {
+  let back_to_top_button = ['<a href="#top" class="back-to-top">Back to Top</a>'].join("");
+    $("body").append(back_to_top_button)
+    $("a.back-to-top").hide();
+    $(function () {
+      $(window).scroll(function () {
+        if ($(this).scrollTop() > 600) { 
+          $('a.back-to-top').fadeIn();
+        } else {
+          $('a.back-to-top').fadeOut();
+        }
+      });
+      $('a.back-to-top').click(function () { 
+        $('body,html').animate({
+          scrollTop: 0
+        }, 800);
+        return false;
+      });
+    });
+}
+/* Implementing smooth scroll functionality */
+function handleAutoScroll() {
+  $('a[href^="#"]').on('click', function(event) { 
+      let scrollTarget = $(this.getAttribute('href')); 
+      if( scrollTarget.length ) {
+          $('html, body').stop().animate({scrollTop: scrollTarget.offset().top }, 800);   
+      }
+  });
+}
 /* Handle change topic */
-function showVrTopic() {
+function showArTopic() {
   $("#topic-AR").on('click', function(){
     searchTerm = 'AR Augmented Reality';
     getNews(searchTerm, 10);
     getYouTubeVideos(searchTerm + "Technology", 10);
     fetchTweets(searchTerm); 
+    /* Change topic titles */ 
+    $(this).addClass('topic-selected');
+    $("#topic-VR").removeClass('topic-selected');
+    $(this).closest('header').find('h1 span').hide().text('AR').fadeIn('slow');
+    $(this).closest('body').find('.news-title span').hide().text('AR').slideDown('slow');
+    $(this).closest('body').find('.videos-title span').hide().text('AR').slideDown('slow');
+    $(this).closest('body').find('.tweets-title span').hide().text('AR').slideDown('slow');
   });
 }
-function showArTopic() {
+function showVrTopic() {
   $("#topic-VR").on('click', function(){
     searchTerm = 'VR Virtual Reality';
     getNews(searchTerm, 10);
     getYouTubeVideos(searchTerm + "Technology", 10); 
-    fetchTweets(searchTerm); 
+    fetchTweets(searchTerm);
+    /* Change topic titles */ 
+    $(this).addClass('topic-selected');
+    $("#topic-AR").removeClass('topic-selected');
+    $(this).closest('header').find('h1 span').hide().text('VR').fadeIn('slow');
+    $(this).closest('body').find('.news-title span').hide().text('VR').slideDown('slow');
+    $(this).closest('body').find('.videos-title span').hide().text('VR').slideDown('slow');
+    $(this).closest('body').find('.tweets-title span').hide().text('VR').slideDown('slow');
   });
 }
 
 function initApp() {   
   showVrTopic();
   showArTopic();
+  scrollBack();
+  handleAutoScroll();
   const maxResults = 10;
   getNews(searchTerm, maxResults);
-  getYouTubeVideos(searchTerm + "Technology", maxResults);
+  getYouTubeVideos(searchTerm + "Technology", maxResults); 
   fetchTweets(searchTerm); 
 }
 

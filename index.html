@@ -1,56 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>VR Info Page</title>
+    <title>VR Info Feed</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
+
 <body>
-  <header id="home" role="banner">
-    <h1 class="slideDown">VR News Feed</h1>
-    <nav class="buttons">
-      <button id="topic-VR">VR News</button>
-      <button id="topic-AR">AR News</button>
+    <nav role="navigation">
+        <div class="mobile-menu">
+            <ul>
+                <li>
+                    <a href="#home">Home</a>
+                </li>
+                <li>
+                    <a href="#results">News</span></a>
+                </li>
+                <li>
+                    <a href="#results-youtube">Videos</span></a>
+                </li>
+                <li>
+                    <a href="#results-tweets">Tweets</span></a>
+                </li>
+            </ul>
+        </div>
     </nav>
-    <p id="js-error-message" class="error-message"></p>
-  </header>
-    <main class="container">
-        
+    <header id="home" role="banner">
+        <h1 class="slideDown"><span class="wow slideUp">VR</span> News Feed</h1>
+        <div class="buttons slideUp">
+            <button class="topic-selected" id="topic-VR">VR News</button>
+            <button id="topic-AR">AR News</button>
+        </div>
+        <p id="js-error-message" class="error-message"></p>
+    </header>
+    <main class="container" role="main">
         <section id="results" class="hidden">
-          <h2>VR News</h2>
-          <ul id="results-list">
-          </ul>
+            <h2 class="news-title"><span>VR</span> News</h2>
+            <ul id="results-list">
+            </ul>
         </section>
-         <section id="results-youtube" class="hidden">
-          <h2>VR Videos</h2>
-          <ul id="results-list-youtube">
-            
-          </ul>
+        <section id="results-youtube" class="hidden">
+            <h2 class="videos-title"><span>VR</span> Videos</h2>
+            <ul id="results-list-youtube">
+
+            </ul>
         </section>
         <section id="results-tweets">
-            <h2>Latest Tweets on VR</h2>
+            <h2 class="tweets-title">Latest Tweets on <span>VR</span></h2>
             <ul id="tweets"></ul>
-      
-          </section>
-        
-        </main>
+        </section>
+    </main>
     <div class="overlay-video">
-    
         <div class="videoWrapperExt">
             <div class="videoWrapper">
-              <div class="close"></div>
+                <div class="close"></div>
                 <iframe id="player" width="853" height="480" src="" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
-    
-     
+    <footer class="wow fadeIn">
+        <button class="wow slideDown"><a href="https://vansky17.github.io/VR-Quiz-App/" target="_blank">Test Your
+                Knowledge!</a></button>
+    </footer>
     <script src="script.js"></script>
- 
 </body>
 </html>
