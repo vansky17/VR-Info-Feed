@@ -77,8 +77,8 @@ h1 {
   text-align: center;
 }
 #results, #results-youtube{
-  min-width:37%;
-  max-width:37%;
+  min-width:60%;
+  max-width:60%;
   background: lightgray;
 }
 #results {
@@ -89,8 +89,8 @@ h1 {
   font-family: 'Orbitron', sans-serif;
 }
 #results-tweets {
-  min-width:25.5%;
-  max-width:25.5%;
+  min-width:30%;
+  max-width:30%;
   background: rgb(29, 31, 32);
 }
 #results-tweets h2{

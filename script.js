@@ -1,9 +1,10 @@
 let searchTerm = 'VR Virtual Reality';
 /* NewsAPi keys and endpoint */
-const apiKey = 'f8bf2ba3981049d5b63a26340c970e25';
-const searchURL = 'https://newsapi.org/v2/everything';
+const apiKey = '651f8a9576a94fe0aabeef5d8982b540';
+/* const apiKey = 'f8bf2ba3981049d5b63a26340c970e25';  */
+const searchURL = 'https://cors-anywhere.herokuapp.com/https://newsapi.org/v2/everything';
 /* YouTubeAPi keys and endpoint */
-const apiKeyYoutube = 'AIzaSyBCCJT9l3ufF2B-kVSwZ-RSxNLgAAxONDE'; 
+const apiKeyYoutube = 'AIzaSyDkiFL3j92Ca0UafuQtyUqdp39MCpiO7Po'; 
 const searchURLYoutube = 'https://www.googleapis.com/youtube/v3/search';
 /* TwitterAPi keys and endpoint */
 const API_KEY = 'yk3wp5Rm2Xa90PFrgDy3fvYwz'
@@ -49,22 +50,22 @@ function displayResults(responseJson, maxResults) {
   $('#results').removeClass('hidden');
 };
 // Fetching the newsAPI response
-function getNews(query, maxResults=10) {
+/* function getNews(query, maxResults=10) {
   const params = {
     qInTitle: query,
     sortBy:'publishedAt',
     language: "en",
   };
   const queryString = formatQueryParams(params)
-  const url = searchURL + '?' + queryString;
-  console.log(url);
+  const url = searchURL + '?' + queryString + '&from=2020-05-24' + '&apiKey=' + apiKey;
+  console.log(url); */
 
-  const options = {
+  /* const options = {
     headers: new Headers({
-      "X-Api-Key": apiKey})
-  };
+      "x-api-key": apiKey })
+  }; */
 
-  fetch(url, options)
+  /* fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -75,7 +76,7 @@ function getNews(query, maxResults=10) {
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`);
     });
-}
+} */
 
 /* youtube videos start here */
 /* Implementation of the video display */
@@ -275,14 +276,14 @@ function handleAutoScroll() {
 function showArTopic() {
   $("#topic-AR").on('click', function(){
     searchTerm = 'AR Augmented Reality';
-    getNews(searchTerm, 10);
+    /* getNews(searchTerm, 10); */
     getYouTubeVideos(searchTerm + "Technology", 10);
     getTweets(searchTerm); 
     /* Change topic titles */ 
     $(this).addClass('topic-selected');
     $("#topic-VR").removeClass('topic-selected');
     $(this).closest('header').find('h1 span').hide().text('AR').fadeIn('slow');
-    $(this).closest('body').find('.news-title span').hide().text('AR').slideDown('slow');
+   /*  $(this).closest('body').find('.news-title span').hide().text('AR').slideDown('slow'); */
     $(this).closest('body').find('.videos-title span').hide().text('AR').slideDown('slow');
     $(this).closest('body').find('.tweets-title span').hide().text('AR').slideDown('slow');
   });
@@ -290,14 +291,14 @@ function showArTopic() {
 function showVrTopic() {
   $("#topic-VR").on('click', function(){
     searchTerm = 'VR Virtual Reality';
-    getNews(searchTerm, 10);
+   /*  getNews(searchTerm, 10); */
     getYouTubeVideos(searchTerm + "Technology", 10); 
     getTweets(searchTerm);
     /* Change topic titles */ 
     $(this).addClass('topic-selected');
     $("#topic-AR").removeClass('topic-selected');
     $(this).closest('header').find('h1 span').hide().text('VR').fadeIn('slow');
-    $(this).closest('body').find('.news-title span').hide().text('VR').slideDown('slow');
+   /*  $(this).closest('body').find('.news-title span').hide().text('VR').slideDown('slow'); */
     $(this).closest('body').find('.videos-title span').hide().text('VR').slideDown('slow');
     $(this).closest('body').find('.tweets-title span').hide().text('VR').slideDown('slow');
   });
@@ -309,7 +310,7 @@ function initApp() {
   scrollBack();
   handleAutoScroll();
   const maxResults = 10;
-  getNews(searchTerm, maxResults);
+  /* getNews(searchTerm, maxResults); */
   getYouTubeVideos(searchTerm + "Technology", maxResults); 
   getTweets(searchTerm); 
   new WOW().init();
