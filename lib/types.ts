@@ -33,6 +33,6 @@ export interface SourceDefinition {
   type: "rss" | "youtube";
   feedUrl?: string;
   query?: string;
+  kind?: FeedKind;
   enabled: boolean;
 }
-

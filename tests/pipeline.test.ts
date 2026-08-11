@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { classify } from "../lib/classify.ts";
 import { deduplicate } from "../lib/dedupe.ts";
+import { decodeHtmlEntities } from "../lib/text.ts";
 import type { FeedItem } from "../lib/types.ts";
 
 test("classifies overlapping XR signals", () => {
@@ -17,4 +18,11 @@ test("deduplicates canonical-equivalent URLs and titles", () => {
   };
   const duplicate = { ...base, id: "two", url: "https://www.example.com/story#top" };
   assert.equal(deduplicate([base, duplicate]).length, 1);
+});
+
+test("decodes numeric and named HTML entities from feed text", () => {
+  assert.equal(
+    decodeHtmlEntities("&#8216;Zelda&#8217; &amp; &#x27;Mario Kart&#x27;"),
+    "‘Zelda’ & 'Mario Kart'",
+  );
 });

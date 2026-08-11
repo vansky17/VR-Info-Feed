@@ -145,7 +145,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
           <div className="hero-meta">
             <span><Radio size={14} /> {mode === "live" ? "Live ingestion" : "Preview mode"}</span>
             <span>{items.length} signals tracked</span>
-            <span>3 source adapters</span>
+            <span>5 source adapters</span>
           </div>
         </section>
 

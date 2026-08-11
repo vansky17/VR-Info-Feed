@@ -18,6 +18,24 @@ export const sources: SourceDefinition[] = [
     enabled: true,
   },
   {
+    id: "youtube-mrtv-rss",
+    name: "MRTV",
+    homepage: "https://www.youtube.com/@mixedrealityTV",
+    type: "rss",
+    feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UC2mgZjuHRDW02mx_ok4wfPw",
+    kind: "video",
+    enabled: true,
+  },
+  {
+    id: "youtube-thrillseeker-rss",
+    name: "ThrillSeeker",
+    homepage: "https://www.youtube.com/@ThrillSeekerVR",
+    type: "rss",
+    feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UCSbdMXOI_3HGiFviLZO6kNA",
+    kind: "video",
+    enabled: true,
+  },
+  {
     id: "youtube-xr",
     name: "YouTube XR",
     homepage: "https://www.youtube.com/",
@@ -26,4 +44,3 @@ export const sources: SourceDefinition[] = [
     enabled: true,
   },
 ];
-

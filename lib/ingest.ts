@@ -3,6 +3,7 @@ import { XMLParser } from "fast-xml-parser";
 import { calculateRelevance, classify } from "./classify";
 import { deduplicate } from "./dedupe";
 import { sources } from "./sources";
+import { decodeHtmlEntities } from "./text";
 import type { FeedItem, SourceDefinition } from "./types";
 
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: "@_" });
@@ -19,7 +20,18 @@ function text(value: unknown): string {
 }
 
 function stripMarkup(value: string): string {
-  return value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  return decodeHtmlEntities(value.replace(/<[^>]*>/g, " ")).replace(/\s+/g, " ").trim();
+}
+
+function linkUrl(value: unknown): string {
+  if (Array.isArray(value)) {
+    const alternate = value.find((link) => link?.["@_rel"] === "alternate") ?? value[0];
+    return linkUrl(alternate);
+  }
+  if (value && typeof value === "object") {
+    return String((value as Record<string, unknown>)["@_href"] ?? "");
+  }
+  return text(value);
 }
 
 function idFor(url: string): string {
@@ -37,23 +49,23 @@ async function fetchRss(source: SourceDefinition): Promise<FeedItem[]> {
   const entries = asArray(xml?.rss?.channel?.item ?? xml?.feed?.entry);
 
   return entries.slice(0, 12).flatMap((entry: Record<string, unknown>) => {
-    const title = text(entry.title);
-    const linkValue = entry.link;
-    const url = typeof linkValue === "object" && linkValue
-      ? String((linkValue as Record<string, unknown>)["@_href"] ?? "")
-      : text(linkValue);
+    const title = decodeHtmlEntities(text(entry.title));
+    const url = linkUrl(entry.link);
     if (!title || !url) return [];
-    const rawSummary = text(entry.description ?? entry.summary ?? entry.content);
+    const media = entry["media:group"] as Record<string, unknown> | undefined;
+    const rawSummary = text(entry.description ?? entry.summary ?? entry.content ?? media?.["media:description"]);
     const summary = stripMarkup(rawSummary).slice(0, 280) || "Open the source for the full story.";
     const publishedAt = new Date(text(entry.pubDate ?? entry.published ?? entry.updated) || Date.now()).toISOString();
     const combined = `${title} ${summary}`;
     const enclosure = entry.enclosure as Record<string, unknown> | undefined;
+    const thumbnail = media?.["media:thumbnail"] as Record<string, unknown> | undefined;
+    const kind = source.kind ?? "article";
     return [{
       id: idFor(url), title, url, summary, publishedAt,
-      source: source.name, sourceUrl: source.homepage, kind: "article" as const,
+      source: source.name, sourceUrl: source.homepage, kind,
       topics: classify(combined), relevance: calculateRelevance(title, summary, publishedAt),
-      imageUrl: enclosure?.["@_url"] ? String(enclosure["@_url"]) : undefined,
-      readingMinutes: Math.max(2, Math.round(summary.length / 180)),
+      imageUrl: enclosure?.["@_url"] ? String(enclosure["@_url"]) : thumbnail?.["@_url"] ? String(thumbnail["@_url"]) : undefined,
+      readingMinutes: kind === "video" ? undefined : Math.max(2, Math.round(summary.length / 180)),
     }];
   });
 }
@@ -97,4 +109,3 @@ export async function ingestSources(): Promise<{ items: FeedItem[]; warnings: st
     warnings,
   };
 }
-
