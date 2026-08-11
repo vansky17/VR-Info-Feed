@@ -30,7 +30,6 @@ export default function PrivacyPage() {
           <p>Vercel&apos;s current documentation states that runtime logs on the Hobby plan are retained for one hour. Vercel may separately process data required to secure and operate its platform under its own documented terms.</p>
           <p>XR Signal&apos;s server functions are currently configured to run in Vercel&apos;s <code>iad1</code> region in the United States. Technical request data may therefore be processed in the United States.</p>
           <p>Vercel states in its Privacy Notice that it participates in the EU-U.S. Data Privacy Framework and uses standard contractual clauses or other appropriate mechanisms where required. Its published Data Processing Addendum applies to Pro and Enterprise customers.</p>
-          <p className="legal-note"><strong>Operator action required:</strong> [VERIFY WHICH TRANSFER SAFEGUARD APPLIES TO THE OPERATOR&apos;S CURRENT VERCEL HOBBY CONTRACT BEFORE FINALIZING THIS NOTICE.]</p>
           <p>Further information is available in Vercel&apos;s <a href="https://vercel.com/legal/privacy-notice" target="_blank" rel="noreferrer">Privacy Notice</a>, <a href="https://vercel.com/docs/logs/runtime" target="_blank" rel="noreferrer">Runtime Logs documentation</a>, and <a href="https://vercel.com/legal/dpa" target="_blank" rel="noreferrer">Data Processing Addendum</a>.</p>
         </section>
 
