@@ -40,7 +40,7 @@ export const sources: SourceDefinition[] = [
     name: "YouTube XR",
     homepage: "https://www.youtube.com/",
     type: "youtube",
-    query: "virtual reality|augmented reality|mixed reality|spatial computing",
+    query: "VR",
     enabled: true,
   },
 ];
