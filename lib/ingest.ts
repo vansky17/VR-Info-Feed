@@ -72,7 +72,8 @@ async function fetchRss(source: SourceDefinition): Promise<FeedItem[]> {
 
 async function fetchYouTube(source: SourceDefinition): Promise<FeedItem[]> {
   const key = process.env.YOUTUBE_API_KEY;
-  if (!key || !source.query) return [];
+  if (!source.query) return [];
+  if (!key) throw new Error(`${source.name}: YOUTUBE_API_KEY is not configured`);
   const params = new URLSearchParams({
     key, q: source.query, part: "snippet", order: "relevance", type: "video",
     maxResults: "10", safeSearch: "strict",
