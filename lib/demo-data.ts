@@ -1,4 +1,5 @@
 import type { FeedItem } from "./types";
+import { truncateExcerpt } from "./text";
 
 export const demoItems: FeedItem[] = [
   {
@@ -8,7 +9,7 @@ export const demoItems: FeedItem[] = [
     source: "Khronos Group",
     sourceUrl: "https://www.khronos.org/",
     publishedAt: "2026-08-11T07:30:00.000Z",
-    summary: "The standards layer remains one of the strongest signals for where interoperable XR hardware and software are heading.",
+    excerpt: truncateExcerpt("The standards layer remains one of the strongest signals for where interoperable XR hardware and software are heading."),
     kind: "article",
     topics: ["Industry", "VR", "AR"],
     relevance: 96,
@@ -22,7 +23,7 @@ export const demoItems: FeedItem[] = [
     source: "Road to VR",
     sourceUrl: "https://www.roadtovr.com/",
     publishedAt: "2026-08-11T05:10:00.000Z",
-    summary: "Display efficiency, field of view, and all-day comfort are converging into a single design problem for the next headset cycle.",
+    excerpt: truncateExcerpt("Display efficiency, field of view, and all-day comfort are converging into a single design problem for the next headset cycle."),
     kind: "article",
     topics: ["Hardware", "VR"],
     relevance: 92,
@@ -35,7 +36,7 @@ export const demoItems: FeedItem[] = [
     source: "XR Research Watch",
     sourceUrl: "https://developer.mozilla.org/en-US/docs/Web/API/WebXR_Device_API",
     publishedAt: "2026-08-10T18:45:00.000Z",
-    summary: "Multimodal models can now interpret rooms, objects, gestures, and intent—changing what an XR interface can reasonably understand.",
+    excerpt: truncateExcerpt("Multimodal models can now interpret rooms, objects, gestures, and intent—changing what an XR interface can reasonably understand."),
     kind: "research",
     topics: ["AI + XR", "AR"],
     relevance: 89,
@@ -48,7 +49,7 @@ export const demoItems: FeedItem[] = [
     source: "UploadVR",
     sourceUrl: "https://www.uploadvr.com/",
     publishedAt: "2026-08-10T14:20:00.000Z",
-    summary: "Training, remote assistance, and spatial design are increasingly evaluated on time saved rather than novelty.",
+    excerpt: truncateExcerpt("Training, remote assistance, and spatial design are increasingly evaluated on time saved rather than novelty."),
     kind: "article",
     topics: ["Industry", "MR"],
     relevance: 84,
@@ -61,7 +62,7 @@ export const demoItems: FeedItem[] = [
     source: "YouTube XR",
     sourceUrl: "https://www.youtube.com/",
     publishedAt: "2026-08-09T16:00:00.000Z",
-    summary: "A developer-focused overview of browsers, runtimes, input systems, and deployment options for immersive web experiences.",
+    excerpt: truncateExcerpt("A developer-focused overview of browsers, runtimes, input systems, and deployment options for immersive web experiences."),
     kind: "video",
     topics: ["VR", "AR"],
     relevance: 80,
@@ -73,11 +74,10 @@ export const demoItems: FeedItem[] = [
     source: "Research Signal",
     sourceUrl: "https://arxiv.org/",
     publishedAt: "2026-08-08T11:15:00.000Z",
-    summary: "Teams are connecting latency, embodiment, comfort, and interaction quality to outcomes they can test and compare.",
+    excerpt: truncateExcerpt("Teams are connecting latency, embodiment, comfort, and interaction quality to outcomes they can test and compare."),
     kind: "research",
     topics: ["VR", "Industry"],
     relevance: 76,
     readingMinutes: 7,
   },
 ];
-

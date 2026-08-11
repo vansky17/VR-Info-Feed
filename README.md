@@ -8,6 +8,7 @@ XR Signal is a modern XR intelligence dashboard for virtual, augmented, and mixe
 
 - Collects XR articles and videos behind a server-side ingestion layer
 - Normalizes every source into one feed model
+- Labels publisher-provided text as 100-character excerpts and preserves available bylines
 - Classifies signals as VR, AR, MR, AI + XR, Hardware, and Industry
 - Ranks signals by deterministic relevance and recency
 - Removes duplicate titles and canonical-equivalent URLs
@@ -34,7 +35,7 @@ XR Signal is a modern XR intelligence dashboard for virtual, augmented, and mixe
 - [AWE XR](https://www.youtube.com/@AWEXR)
 - [Varjo](https://www.youtube.com/@varjodotcom)
 
-Each direct video source contributes at most five recent entries per refresh. An additional YouTube Data API adapter can perform broader discovery when `YOUTUBE_API_KEY` is configured; the direct RSS channels remain the credential-free fallback.
+Each direct video source contributes at most five recent entries per refresh. The broader YouTube Data API search adapter is disabled pending a separate integration review; the direct channel feeds are unchanged.
 
 ## Technology
 
@@ -64,7 +65,7 @@ All credentials are server-only. Never prefix them with `NEXT_PUBLIC_` or commit
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `CRON_SECRET` | Production | Protects the scheduled ingestion endpoint |
-| `YOUTUBE_API_KEY` | Optional | Enables broad YouTube search beyond direct channel feeds |
+| `YOUTUBE_API_KEY` | Reserved | Broad YouTube API search is currently disabled |
 | `DATABASE_URL` | Future | Reserved for the PostgreSQL persistence milestone |
 | `OPENAI_API_KEY` | Future | Reserved for cached AI summaries and enrichment |
 
@@ -103,8 +104,7 @@ The production project is hosted on Vercel. For a fresh deployment:
 
 1. Import or link this GitHub repository in Vercel.
 2. Add `CRON_SECRET` as a sensitive production variable.
-3. Optionally add a YouTube Data API v3 key as `YOUTUBE_API_KEY`.
-4. Deploy the project.
+3. Deploy the project. The reserved YouTube API key is not used while broad search remains disabled.
 
 The old GitHub Pages deployment belongs to the historical version; Vercel is the target host for XR Signal.
 
@@ -112,11 +112,11 @@ The old GitHub Pages deployment belongs to the historical version; Vercel is the
 
 - Bookmarks are stored in the current browser's local storage.
 - Scheduled ingestion does not yet write to a database.
-- Broader YouTube API results can vary by provider response; direct channel feeds remain reliable.
-- Classification, relevance, and summaries are currently deterministic rather than model-generated.
+- Broad YouTube API search is disabled pending a separate compliance review; direct channel feeds remain unchanged.
+- Live excerpts are publisher-provided. Classification and relevance are deterministic, and XR Signal does not generate AI summaries.
 - [`db/schema.sql`](db/schema.sql) is ready for a future PostgreSQL repository layer.
 
-Likely next milestones are persistent ingestion, cross-device saved signals, stronger semantic deduplication, cached AI summaries, and user-controlled source preferences.
+Likely next milestones are persistent ingestion, cross-device saved signals, stronger semantic deduplication, a separately reviewed YouTube integration, and user-controlled source preferences.
 
 ## Security note
 

@@ -15,12 +15,12 @@ create table if not exists feed_items (
   canonical_url text not null unique,
   source_id text not null references sources(id),
   title text not null,
-  summary text not null,
+  excerpt text not null,
+  author text,
   published_at timestamptz not null,
   kind text not null check (kind in ('article', 'video', 'research')),
   topics text[] not null default '{}',
   relevance smallint not null check (relevance between 0 and 100),
-  image_url text,
   raw_payload jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
@@ -36,4 +36,3 @@ create table if not exists enrichments (
   why_it_matters text,
   created_at timestamptz not null default now()
 );
-

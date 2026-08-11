@@ -30,7 +30,10 @@ function SignalCard({ item, saved, onSave }: { item: FeedItem; saved: boolean; o
       <div className="signal-card-top">
         <div className="source-lockup">
           <span className="source-mark">{sourceInitials(item.source)}</span>
-          <div><strong>{item.source}</strong><span>{timeAgo(item.publishedAt)}</span></div>
+          <div>
+            <strong>{item.source}</strong>
+            <span>{item.author && item.author.toLowerCase() !== item.source.toLowerCase() ? `By ${item.author} · ` : ""}{timeAgo(item.publishedAt)}</span>
+          </div>
         </div>
         <button className={`icon-button ${saved ? "saved" : ""}`} onClick={onSave} aria-label={saved ? "Remove bookmark" : "Bookmark signal"}>
           <Bookmark size={17} fill={saved ? "currentColor" : "none"} />
@@ -52,7 +55,7 @@ function SignalCard({ item, saved, onSave }: { item: FeedItem; saved: boolean; o
         <span className="score">{item.relevance}% match</span>
       </div>
       <h2>{item.title}</h2>
-      <p>{item.summary}</p>
+      {item.excerpt && <p>{item.excerpt}</p>}
       <div className="card-footer">
         <span>{item.readingMinutes ? <><Clock3 size={14} /> {item.readingMinutes} min</> : <><Play size={14} /> Watch</>}</span>
         <a href={item.url} target="_blank" rel="noreferrer">Open signal <ArrowUpRight size={15} /></a>
@@ -109,7 +112,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
   const filtered = useMemo(() => items.filter((item) => {
     const matchesTopic = topic === "All signals" || item.topics.includes(topic);
     const needle = query.toLowerCase().trim();
-    const matchesQuery = !needle || `${item.title} ${item.summary} ${item.source}`.toLowerCase().includes(needle);
+    const matchesQuery = !needle || `${item.title} ${item.excerpt} ${item.source} ${item.author ?? ""}`.toLowerCase().includes(needle);
     const matchesSaved = !showSaved || saved.has(item.id);
     return matchesTopic && matchesQuery && matchesSaved;
   }), [items, topic, query, showSaved, saved]);
@@ -145,7 +148,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
           <div className="hero-meta">
             <span><Radio size={14} /> {mode === "live" ? "Live ingestion" : "Preview mode"}</span>
             <span>{items.length} signals tracked</span>
-            <span>12 source adapters</span>
+            <span>11 active source adapters</span>
           </div>
         </section>
 
@@ -182,7 +185,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
               <a href="https://www.roadtovr.com/" target="_blank" rel="noreferrer"><span>RT</span><strong>Road to VR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://www.uploadvr.com/" target="_blank" rel="noreferrer"><span>UV</span><strong>UploadVR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://thexrbeat.com/" target="_blank" rel="noreferrer"><span>XB</span><strong>The XR Beat<small>RSS · active</small></strong><ExternalLink size={16} /></a>
-              <a href="https://www.youtube.com/" target="_blank" rel="noreferrer"><span>YT</span><strong>YouTube XR<small>API · optional key</small></strong><ExternalLink size={16} /></a>
+              <a href="https://www.youtube.com/" target="_blank" rel="noreferrer"><span>YT</span><strong>YouTube channels<small>RSS · active</small></strong><ExternalLink size={16} /></a>
             </div>
           </div>
         </section>

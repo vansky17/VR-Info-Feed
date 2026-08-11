@@ -14,12 +14,11 @@ export function classify(text: string): XrTopic[] {
   return matches.length ? [...new Set(matches)] : ["Industry"];
 }
 
-export function calculateRelevance(title: string, summary: string, publishedAt: string): number {
-  const text = `${title} ${summary}`;
+export function calculateRelevance(title: string, excerpt: string, publishedAt: string): number {
+  const text = `${title} ${excerpt}`;
   const topicSignal = Math.min(classify(text).length * 8, 24);
   const hoursOld = Math.max(0, (Date.now() - new Date(publishedAt).getTime()) / 3_600_000);
   const freshness = Math.max(0, 36 - Math.log2(hoursOld + 1) * 6);
-  const depth = Math.min(summary.length / 12, 20);
+  const depth = Math.min(excerpt.length / 12, 20);
   return Math.round(Math.min(99, 20 + topicSignal + freshness + depth));
 }
-

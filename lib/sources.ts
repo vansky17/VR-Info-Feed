@@ -111,6 +111,6 @@ export const sources: SourceDefinition[] = [
     homepage: "https://www.youtube.com/",
     type: "youtube",
     query: "VR",
-    enabled: true,
+    enabled: false,
   },
 ];
