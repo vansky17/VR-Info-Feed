@@ -102,7 +102,7 @@ export async function ingestSources(): Promise<{ items: FeedItem[]; warnings: st
   const warnings: string[] = [];
   const items = settled.flatMap((result, index) => {
     if (result.status === "fulfilled") return result.value;
-    warnings.push(`${enabled[index].name} could not be refreshed.`);
+    warnings.push(result.reason instanceof Error ? result.reason.message : `${enabled[index].name} could not be refreshed.`);
     return [];
   });
   return {
