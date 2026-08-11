@@ -61,7 +61,7 @@ function SignalCard({ item, saved, onSave }: { item: FeedItem; saved: boolean; o
   );
 }
 
-export function Dashboard({ initialItems }: { initialItems: FeedItem[] }) {
+export function Dashboard({ initialItems, initialMode }: { initialItems: FeedItem[]; initialMode: "live" | "demo" }) {
   const [items, setItems] = useState(initialItems);
   const [topic, setTopic] = useState<TopicFilter>("All signals");
   const [query, setQuery] = useState("");
@@ -69,8 +69,12 @@ export function Dashboard({ initialItems }: { initialItems: FeedItem[] }) {
   const [showSaved, setShowSaved] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [mode, setMode] = useState<"live" | "demo">("demo");
-  const [notice, setNotice] = useState("Curated preview · connect live sources when ready");
+  const [mode, setMode] = useState<"live" | "demo">(initialMode);
+  const [notice, setNotice] = useState(
+    initialMode === "live"
+      ? `${initialItems.length} live signals · updated automatically`
+      : "Curated preview · live feeds unavailable",
+  );
 
   async function refresh() {
     setLoading(true);
