@@ -75,33 +75,9 @@ async function fetchRss(source: SourceDefinition): Promise<FeedItem[]> {
   });
 }
 
-async function fetchYouTube(source: SourceDefinition): Promise<FeedItem[]> {
-  const key = process.env.YOUTUBE_API_KEY;
-  if (!source.query) return [];
-  if (!key) throw new Error(`${source.name}: YOUTUBE_API_KEY is not configured`);
-  const params = new URLSearchParams({
-    key, q: source.query, part: "snippet", type: "video", maxResults: "3",
-  });
-  const response = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`, {
-    signal: AbortSignal.timeout(8_000),
-  });
-  if (!response.ok) throw new Error(`${source.name}: HTTP ${response.status}`);
-  const payload = await response.json() as { items?: Array<{ id: { videoId: string }; snippet: { title: string; description: string; publishedAt: string; channelTitle: string } }> };
-  return (payload.items ?? []).map(({ id, snippet }) => {
-    const url = `https://www.youtube.com/watch?v=${id.videoId}`;
-    const excerpt = truncateExcerpt(snippet.description);
-    return {
-      id: idFor(url), title: snippet.title, url, excerpt, publishedAt: snippet.publishedAt,
-      source: snippet.channelTitle, sourceUrl: source.homepage, kind: "video" as const,
-      topics: classify(`${snippet.title} ${excerpt}`),
-      relevance: calculateRelevance(snippet.title, excerpt, snippet.publishedAt),
-    };
-  });
-}
-
 export async function ingestSources(): Promise<{ items: FeedItem[]; warnings: string[] }> {
   const enabled = sources.filter((source) => source.enabled);
-  const settled = await Promise.allSettled(enabled.map((source) => source.type === "rss" ? fetchRss(source) : fetchYouTube(source)));
+  const settled = await Promise.allSettled(enabled.map(fetchRss));
   const warnings: string[] = [];
   const items = settled.flatMap((result, index) => {
     if (result.status === "fulfilled") return result.value;

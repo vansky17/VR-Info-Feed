@@ -30,9 +30,8 @@ export interface SourceDefinition {
   id: string;
   name: string;
   homepage: string;
-  type: "rss" | "youtube";
+  type: "rss";
   feedUrl?: string;
-  query?: string;
   kind?: FeedKind;
   itemLimit?: number;
   enabled: boolean;

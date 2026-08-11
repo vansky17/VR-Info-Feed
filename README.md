@@ -35,7 +35,7 @@ XR Signal is a modern XR intelligence dashboard for virtual, augmented, and mixe
 - [AWE XR](https://www.youtube.com/@AWEXR)
 - [Varjo](https://www.youtube.com/@varjodotcom)
 
-Each direct video source contributes at most five recent entries per refresh. The broader YouTube Data API search adapter is disabled pending a separate integration review; the direct channel feeds are unchanged.
+Each direct video source contributes at most five recent entries per refresh. The broad YouTube Data API search adapter is not part of the production application; the direct channel feeds are unchanged.
 
 ## Technology
 
@@ -65,7 +65,6 @@ All credentials are server-only. Never prefix them with `NEXT_PUBLIC_` or commit
 | Variable | Required | Purpose |
 | --- | --- | --- |
 | `CRON_SECRET` | Production | Protects the scheduled ingestion endpoint |
-| `YOUTUBE_API_KEY` | Reserved | Broad YouTube API search is currently disabled |
 | `DATABASE_URL` | Future | Reserved for the PostgreSQL persistence milestone |
 | `OPENAI_API_KEY` | Future | Reserved for cached AI summaries and enrichment |
 
@@ -104,7 +103,7 @@ The production project is hosted on Vercel. For a fresh deployment:
 
 1. Import or link this GitHub repository in Vercel.
 2. Add `CRON_SECRET` as a sensitive production variable.
-3. Deploy the project. The reserved YouTube API key is not used while broad search remains disabled.
+3. Deploy the project.
 
 The old GitHub Pages deployment belongs to the historical version; Vercel is the target host for XR Signal.
 
@@ -112,13 +111,15 @@ The old GitHub Pages deployment belongs to the historical version; Vercel is the
 
 - Bookmarks are stored in the current browser's local storage.
 - Scheduled ingestion does not yet write to a database.
-- Broad YouTube API search is disabled pending a separate compliance review; direct channel feeds remain unchanged.
+- Broad YouTube Data API search is not included; direct channel feeds remain unchanged.
 - Live excerpts are publisher-provided. Classification and relevance are deterministic, and XR Signal does not generate AI summaries.
 - [`db/schema.sql`](db/schema.sql) is ready for a future PostgreSQL repository layer.
 
 Likely next milestones are persistent ingestion, cross-device saved signals, stronger semantic deduplication, a separately reviewed YouTube integration, and user-controlled source preferences.
 
 ## Security note
+
+The application sends a resource-specific Content Security Policy and conservative browser security headers. The CSP permits same-origin application resources and the existing hero image from `images.pexels.com`; it does not permit third-party scripts, frames, or connections.
 
 The original Git history contains historical service credentials. Treat every legacy NewsAPI, Google/YouTube, and Twitter credential as compromised and revoke or rotate it. Replacement credentials must stay in server-only environment variables, never tracked files or client components.
 

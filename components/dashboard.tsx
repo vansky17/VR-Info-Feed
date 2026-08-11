@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
+import { SiteFooter } from "@/components/site-footer";
+import { bookmarkStorageKey, parseBookmarkIds } from "@/lib/bookmarks";
 import type { FeedItem, FeedResponse, XrTopic } from "@/lib/types";
 import { xrTopics } from "@/lib/types";
 
@@ -96,15 +98,15 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
   }
 
   useEffect(() => {
-    const stored = localStorage.getItem("xr-signal-bookmarks");
-    if (stored) queueMicrotask(() => setSaved(new Set(JSON.parse(stored) as string[])));
+    const stored = parseBookmarkIds(localStorage.getItem(bookmarkStorageKey));
+    if (stored.length) queueMicrotask(() => setSaved(new Set(stored)));
   }, []);
 
   function toggleSaved(id: string) {
     setSaved((current) => {
       const next = new Set(current);
       if (next.has(id)) next.delete(id); else next.add(id);
-      localStorage.setItem("xr-signal-bookmarks", JSON.stringify([...next]));
+      localStorage.setItem(bookmarkStorageKey, JSON.stringify([...next]));
       return next;
     });
   }
@@ -200,7 +202,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
         </section>
       </main>
 
-      <footer><a className="brand" href="#top"><Image className="brand-logo" src="/logo_version1.png" alt="" width={40} height={43} /><span>XR<span>SIGNAL</span></span></a><p>Independent XR intelligence.<br />Built with curiosity.</p><span>© 2026</span></footer>
+      <SiteFooter />
     </div>
   );
 }
