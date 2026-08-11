@@ -75,8 +75,7 @@ async function fetchYouTube(source: SourceDefinition): Promise<FeedItem[]> {
   if (!source.query) return [];
   if (!key) throw new Error(`${source.name}: YOUTUBE_API_KEY is not configured`);
   const params = new URLSearchParams({
-    key, q: source.query, part: "snippet", order: "relevance", type: "video",
-    maxResults: "10",
+    key, q: source.query, part: "snippet", type: "video", maxResults: "3",
   });
   const response = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`, {
     signal: AbortSignal.timeout(8_000),
