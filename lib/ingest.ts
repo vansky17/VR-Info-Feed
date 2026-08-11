@@ -50,7 +50,7 @@ async function fetchRss(source: SourceDefinition): Promise<FeedItem[]> {
 
   return entries.slice(0, source.itemLimit ?? 12).flatMap((entry: Record<string, unknown>) => {
     const title = decodeHtmlEntities(text(entry.title));
-    const url = linkUrl(entry.link);
+    const url = decodeHtmlEntities(linkUrl(entry.link));
     if (!title || !url) return [];
     const media = entry["media:group"] as Record<string, unknown> | undefined;
     const rawSummary = text(entry.description ?? entry.summary ?? entry.content ?? media?.["media:description"]);
