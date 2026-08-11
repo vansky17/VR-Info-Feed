@@ -48,7 +48,7 @@ async function fetchRss(source: SourceDefinition): Promise<FeedItem[]> {
   const xml = parser.parse(await response.text());
   const entries = asArray(xml?.rss?.channel?.item ?? xml?.feed?.entry);
 
-  return entries.slice(0, 12).flatMap((entry: Record<string, unknown>) => {
+  return entries.slice(0, source.itemLimit ?? 12).flatMap((entry: Record<string, unknown>) => {
     const title = decodeHtmlEntities(text(entry.title));
     const url = linkUrl(entry.link);
     if (!title || !url) return [];

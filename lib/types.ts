@@ -34,5 +34,6 @@ export interface SourceDefinition {
   feedUrl?: string;
   query?: string;
   kind?: FeedKind;
+  itemLimit?: number;
   enabled: boolean;
 }
