@@ -1,35 +1,127 @@
-# VR-News-Feed
-A web page to display latest press news, YouTube videos and tweets on Virtual Reality and Augmented Reality.
+# XR Signal
 
+XR Signal is a modern XR intelligence dashboard for virtual, augmented, and mixed reality. It is the 2026 reinterpretation of the original **VR Info Feed**, preserving the project's central idea while replacing its browser-side jQuery and API calls with a typed Next.js application and server-side ingestion layer.
 
-## Description
-This small web app fetches news from newsapi.org, YouTube and Twitter related to VR and AR only.The purpose of the application to serve as one stop place to get information on VR and AR, instead of having to look through various different sources. 
+**Live site:** [xr-signal.vercel.app](https://xr-signal.vercel.app/)
 
-The page has three sections each for the associated type of info. The news are displayed by date. The user is able to switch between VR or AR info feeds. A link to small knowledge test is also available.
+## What it does
 
-## Screenshots
-Overview:
+- Collects XR articles and videos behind a server-side ingestion layer
+- Normalizes every source into one feed model
+- Classifies signals as VR, AR, MR, AI + XR, Hardware, and Industry
+- Ranks signals by deterministic relevance and recency
+- Removes duplicate titles and canonical-equivalent URLs
+- Provides search, topic filters, bookmarks, and manual refresh
+- Preserves the original publisher, publication time, and direct source link
+- Falls back to a clearly labelled demonstration feed if all live sources fail
 
-![overview](img/screen_overview.png)
+## Current sources
 
-Link to a quiz on the subject:
-![test](img/screen_test.png)
+### News RSS
 
-## Built With
-### Programming
-* jQuery
-* HTML/CSS
-### JS libraries used:
-* [WOW.js](https://github.com/graingert/WOW)
-### APIs used
-* NewsAPI
-* YouTubeAPI
-* TwitterAPI
-### Images used
-* [pexels.com](https://www.pexels.com/)
-* [pixabay.com](https://pixabay.com/)
+- [Road to VR](https://www.roadtovr.com/)
+- [UploadVR](https://www.uploadvr.com/)
+- [The XR Beat](https://thexrbeat.com/)
 
-## Demo
+### Direct YouTube RSS
 
- * [Live Demo](https://vansky17.github.io/VR-Info-Feed/)
+- [MRTV](https://www.youtube.com/@mixedrealityTV)
+- [ThrillSeeker](https://www.youtube.com/@ThrillSeekerVR)
+- [Beardo Benjo](https://www.youtube.com/@BeardoBenjo)
+- [Meta Developers](https://www.youtube.com/@MetaDevelopers)
+- [FireDragon Game Studio](https://www.youtube.com/@firedragongamestudio)
+- [Cas & Chary](https://www.youtube.com/@CasandChary)
+- [AWE XR](https://www.youtube.com/@AWEXR)
+- [Varjo](https://www.youtube.com/@varjodotcom)
 
+Each direct video source contributes at most five recent entries per refresh. An additional YouTube Data API adapter can perform broader discovery when `YOUTUBE_API_KEY` is configured; the direct RSS channels remain the credential-free fallback.
+
+## Technology
+
+- Next.js 16 App Router
+- React 19 and TypeScript
+- `fast-xml-parser` for RSS and Atom feeds
+- Lucide icons
+- Vercel Functions and Vercel Cron
+- Node's built-in test runner
+
+## Local development
+
+Requirements: Node.js 20.9 or newer.
+
+```powershell
+npm install
+Copy-Item .env.example .env.local
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000). News and direct-channel YouTube RSS work without credentials.
+
+## Environment variables
+
+All credentials are server-only. Never prefix them with `NEXT_PUBLIC_` or commit a populated `.env.local` file.
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `CRON_SECRET` | Production | Protects the scheduled ingestion endpoint |
+| `YOUTUBE_API_KEY` | Optional | Enables broad YouTube search beyond direct channel feeds |
+| `DATABASE_URL` | Future | Reserved for the PostgreSQL persistence milestone |
+| `OPENAI_API_KEY` | Future | Reserved for cached AI summaries and enrichment |
+
+For production, store secrets as sensitive Vercel environment variables and redeploy after changing them.
+
+## Commands
+
+```bash
+npm run dev       # local development server
+npm run lint      # ESLint
+npm run typecheck # TypeScript without emitting files
+npm test          # classification, deduplication, and text-decoding tests
+npm run build     # optimized production build
+npm start         # serve the production build locally
+```
+
+## API routes
+
+### `GET /api/feed`
+
+Refreshes all enabled adapters and returns normalized, deduplicated, ranked feed items. Responses use a 15-minute CDN cache with stale revalidation. Demo data is returned only when no live source succeeds.
+
+### `GET /api/ingest`
+
+Runs the same ingestion pipeline for Vercel Cron. It requires this header:
+
+```text
+Authorization: Bearer <CRON_SECRET>
+```
+
+The route currently validates and returns collected items but does not persist them. `vercel.json` schedules it daily at 06:17 UTC.
+
+## Deployment
+
+The production project is hosted on Vercel. For a fresh deployment:
+
+1. Import or link this GitHub repository in Vercel.
+2. Add `CRON_SECRET` as a sensitive production variable.
+3. Optionally add a YouTube Data API v3 key as `YOUTUBE_API_KEY`.
+4. Deploy the project.
+
+The old GitHub Pages deployment belongs to the historical version; Vercel is the target host for XR Signal.
+
+## Current limitations and next milestones
+
+- Bookmarks are stored in the current browser's local storage.
+- Scheduled ingestion does not yet write to a database.
+- Broader YouTube API results can vary by provider response; direct channel feeds remain reliable.
+- Classification, relevance, and summaries are currently deterministic rather than model-generated.
+- [`db/schema.sql`](db/schema.sql) is ready for a future PostgreSQL repository layer.
+
+Likely next milestones are persistent ingestion, cross-device saved signals, stronger semantic deduplication, cached AI summaries, and user-controlled source preferences.
+
+## Security note
+
+The original Git history contains historical service credentials. Treat every legacy NewsAPI, Google/YouTube, and Twitter credential as compromised and revoke or rotate it. Replacement credentials must stay in server-only environment variables, never tracked files or client components.
+
+## Source policy
+
+XR Signal always retains source attribution and canonical links. Automated classification and future AI summaries are enrichment, not replacements for the original reporting.
