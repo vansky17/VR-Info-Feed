@@ -141,7 +141,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
         <section className="hero">
           <div className="eyebrow"><CircleDot size={14} /> XR intelligence layer</div>
           <h1>The signal inside<br /><em>spatial computing.</em></h1>
-          <p>A focused stream of developments across virtual, augmented, and mixed reality—deduplicated, classified, and ranked for what matters.</p>
+          <p>A focused stream of developments across virtual, augmented, and mixed reality.</p>
           <div className="hero-meta">
             <span><Radio size={14} /> {mode === "live" ? "Live ingestion" : "Preview mode"}</span>
             <span>{items.length} signals tracked</span>
@@ -177,7 +177,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
         <section className="source-section" id="sources">
           <div><span className="section-index">02 / SOURCES</span><h2>Built for source<br />transparency.</h2></div>
           <div className="source-copy">
-            <p>Every signal keeps its original link, publisher, and publication time. AI can help organize the feed, but it never becomes the source.</p>
+            <p>Every signal keeps its original link, publisher, and publication time.</p>
             <div className="source-list">
               <a href="https://www.roadtovr.com/" target="_blank" rel="noreferrer"><span>RT</span><strong>Road to VR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://www.uploadvr.com/" target="_blank" rel="noreferrer"><span>UV</span><strong>UploadVR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
@@ -189,7 +189,10 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
         <section className="manifesto" id="about">
           <Sparkles size={24} />
           <p>Less feed.<br /><em>More signal.</em></p>
-          <a href="https://github.com/vansky17/VR-Info-Feed" target="_blank" rel="noreferrer">From a 2019 experiment to an XR intelligence layer <ChevronRight size={18} /></a>
+          <div className="manifesto-actions">
+            <a className="origin-link" href="https://github.com/vansky17/VR-Info-Feed" target="_blank" rel="noreferrer">From a 2019 experiment to an XR intelligence layer <ChevronRight size={18} /></a>
+            <a className="quiz-link" href="https://vansky17.github.io/VR-Quiz-App/" target="_blank" rel="noreferrer">Test your knowledge <ArrowUpRight size={17} /></a>
+          </div>
         </section>
       </main>
 
