@@ -75,7 +75,7 @@ async function fetchYouTube(source: SourceDefinition): Promise<FeedItem[]> {
   if (!key || !source.query) return [];
   const params = new URLSearchParams({
     key, q: source.query, part: "snippet", order: "date", type: "video",
-    maxResults: "10", safeSearch: "strict", publishedAfter: new Date(Date.now() - 14 * 864e5).toISOString(),
+    maxResults: "10", safeSearch: "strict",
   });
   const response = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`, {
     signal: AbortSignal.timeout(8_000),
