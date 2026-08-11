@@ -18,6 +18,14 @@ export const sources: SourceDefinition[] = [
     enabled: true,
   },
   {
+    id: "the-xr-beat",
+    name: "The XR Beat",
+    homepage: "https://thexrbeat.com/",
+    type: "rss",
+    feedUrl: "https://thexrbeat.com/feed/",
+    enabled: true,
+  },
+  {
     id: "youtube-mrtv-rss",
     name: "MRTV",
     homepage: "https://www.youtube.com/@mixedrealityTV",

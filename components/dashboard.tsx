@@ -145,7 +145,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
           <div className="hero-meta">
             <span><Radio size={14} /> {mode === "live" ? "Live ingestion" : "Preview mode"}</span>
             <span>{items.length} signals tracked</span>
-            <span>11 source adapters</span>
+            <span>12 source adapters</span>
           </div>
         </section>
 
@@ -181,6 +181,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
             <div className="source-list">
               <a href="https://www.roadtovr.com/" target="_blank" rel="noreferrer"><span>RT</span><strong>Road to VR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://www.uploadvr.com/" target="_blank" rel="noreferrer"><span>UV</span><strong>UploadVR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
+              <a href="https://thexrbeat.com/" target="_blank" rel="noreferrer"><span>XB</span><strong>The XR Beat<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://www.youtube.com/" target="_blank" rel="noreferrer"><span>YT</span><strong>YouTube XR<small>API · optional key</small></strong><ExternalLink size={16} /></a>
             </div>
           </div>

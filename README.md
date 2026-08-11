@@ -21,6 +21,7 @@ XR Signal is a modern XR intelligence dashboard for virtual, augmented, and mixe
 
 - [Road to VR](https://www.roadtovr.com/)
 - [UploadVR](https://www.uploadvr.com/)
+- [The XR Beat](https://thexrbeat.com/)
 
 ### Direct YouTube RSS
 
