@@ -12,3 +12,9 @@ export function decodeHtmlEntities(value: string): string {
     return named[code.toLowerCase()] ?? entity;
   });
 }
+
+export function truncateExcerpt(value: string, maximumCharacters = 100): string {
+  const characters = Array.from(value);
+  if (characters.length <= maximumCharacters) return value;
+  return `${characters.slice(0, maximumCharacters).join("").trimEnd()}...`;
+}

@@ -9,12 +9,12 @@ export interface FeedItem {
   url: string;
   source: string;
   sourceUrl: string;
+  author?: string;
   publishedAt: string;
-  summary: string;
+  excerpt: string;
   kind: FeedKind;
   topics: XrTopic[];
   relevance: number;
-  imageUrl?: string;
   readingMinutes?: number;
   featured?: boolean;
 }
@@ -30,9 +30,8 @@ export interface SourceDefinition {
   id: string;
   name: string;
   homepage: string;
-  type: "rss" | "youtube";
+  type: "rss";
   feedUrl?: string;
-  query?: string;
   kind?: FeedKind;
   itemLimit?: number;
   enabled: boolean;

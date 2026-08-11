@@ -105,12 +105,4 @@ export const sources: SourceDefinition[] = [
     itemLimit: 5,
     enabled: true,
   },
-  {
-    id: "youtube-xr",
-    name: "YouTube XR",
-    homepage: "https://www.youtube.com/",
-    type: "youtube",
-    query: "VR",
-    enabled: true,
-  },
 ];
