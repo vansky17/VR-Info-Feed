@@ -23,12 +23,12 @@ XR Signal is a modern XR intelligence dashboard for virtual, augmented, and mixe
 - [Road to VR](https://www.roadtovr.com/)
 - [UploadVR](https://www.uploadvr.com/)
 - [The XR Beat](https://thexrbeat.com/)
+- [The Ghost Howls](https://skarredghost.com/)
 
 ### Direct YouTube RSS
 
 - [MRTV](https://www.youtube.com/@mixedrealityTV)
 - [ThrillSeeker](https://www.youtube.com/@ThrillSeekerVR)
-- [Beardo Benjo](https://www.youtube.com/@BeardoBenjo)
 - [Meta Developers](https://www.youtube.com/@MetaDevelopers)
 - [FireDragon Game Studio](https://www.youtube.com/@firedragongamestudio)
 - [Cas & Chary](https://www.youtube.com/@CasandChary)

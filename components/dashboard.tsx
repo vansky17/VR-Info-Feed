@@ -187,6 +187,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
               <a href="https://www.roadtovr.com/" target="_blank" rel="noreferrer"><span>RT</span><strong>Road to VR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://www.uploadvr.com/" target="_blank" rel="noreferrer"><span>UV</span><strong>UploadVR<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://thexrbeat.com/" target="_blank" rel="noreferrer"><span>XB</span><strong>The XR Beat<small>RSS · active</small></strong><ExternalLink size={16} /></a>
+              <a href="https://skarredghost.com/" target="_blank" rel="noreferrer"><span>GH</span><strong>The Ghost Howls<small>RSS · active</small></strong><ExternalLink size={16} /></a>
               <a href="https://www.youtube.com/" target="_blank" rel="noreferrer"><span>YT</span><strong>YouTube channels<small>RSS · active</small></strong><ExternalLink size={16} /></a>
             </div>
           </div>
