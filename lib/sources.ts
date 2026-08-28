@@ -103,4 +103,14 @@ export const sources: SourceDefinition[] = [
     itemLimit: 5,
     enabled: true,
   },
+  {
+    id: "youtube-steven-sullivan-rss",
+    name: "Steven Sullivan",
+    homepage: "https://www.youtube.com/@StevenSSullivan",
+    type: "rss",
+    feedUrl: "https://www.youtube.com/feeds/videos.xml?channel_id=UCTecoCovL-9_f59o888a1cA",
+    kind: "video",
+    itemLimit: 5,
+    enabled: true,
+  },
 ];
