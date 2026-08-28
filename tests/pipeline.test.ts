@@ -31,7 +31,7 @@ test("decodes numeric and named HTML entities from feed text", () => {
 
 test("uses only server-side RSS and direct YouTube channel feeds", () => {
   assert.ok(sources.every((source) => source.type === "rss" && source.feedUrl));
-  assert.equal(sources.filter((source) => source.feedUrl?.includes("youtube.com/feeds/videos.xml")).length, 7);
+  assert.equal(sources.filter((source) => source.feedUrl?.includes("youtube.com/feeds/videos.xml")).length, 8);
   assert.equal(sources.find((source) => source.id === "the-ghost-howls")?.feedUrl, "https://skarredghost.com/feed/");
 });
 

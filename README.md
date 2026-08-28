@@ -34,6 +34,7 @@ XR Signal is a modern XR intelligence dashboard for virtual, augmented, and mixe
 - [Cas & Chary](https://www.youtube.com/@CasandChary)
 - [AWE XR](https://www.youtube.com/@AWEXR)
 - [Varjo](https://www.youtube.com/@varjodotcom)
+- [Steven Sullivan](https://www.youtube.com/@StevenSSullivan)
 
 Each direct video source contributes at most five recent entries per refresh. The broad YouTube Data API search adapter is not part of the production application; the direct channel feeds are unchanged.
 
