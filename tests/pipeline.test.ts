@@ -22,6 +22,54 @@ test("deduplicates canonical-equivalent URLs and titles", () => {
   assert.equal(deduplicate([base, duplicate]).length, 1);
 });
 
+test("keeps different YouTube videos distinct", () => {
+  const first: FeedItem = {
+    id: "youtube-one", title: "First YouTube video", url: "https://www.youtube.com/watch?v=hoil4ctlTxg",
+    source: "Example", sourceUrl: "https://www.youtube.com", publishedAt: new Date().toISOString(),
+    excerpt: "Excerpt", kind: "video", topics: ["VR"], relevance: 80,
+  };
+  const second = {
+    ...first,
+    id: "youtube-two",
+    title: "Second YouTube video",
+    url: "https://www.youtube.com/watch?v=MGf1SP4Swyo",
+  };
+
+  assert.equal(deduplicate([first, second]).length, 2);
+});
+
+test("deduplicates equivalent YouTube watch and short URLs", () => {
+  const watch: FeedItem = {
+    id: "youtube-watch", title: "YouTube watch form", url: "https://www.youtube.com/watch?v=hoil4ctlTxg",
+    source: "Example", sourceUrl: "https://www.youtube.com", publishedAt: new Date().toISOString(),
+    excerpt: "Excerpt", kind: "video", topics: ["VR"], relevance: 80,
+  };
+  const short = {
+    ...watch,
+    id: "youtube-short",
+    title: "YouTube short-link form",
+    url: "https://youtu.be/hoil4ctlTxg?si=share-token",
+  };
+
+  assert.equal(deduplicate([watch, short]).length, 1);
+});
+
+test("ignores YouTube tracking parameters when deduplicating", () => {
+  const clean: FeedItem = {
+    id: "youtube-clean", title: "Clean YouTube URL", url: "https://youtube.com/watch?v=hoil4ctlTxg",
+    source: "Example", sourceUrl: "https://www.youtube.com", publishedAt: new Date().toISOString(),
+    excerpt: "Excerpt", kind: "video", topics: ["VR"], relevance: 80,
+  };
+  const tracked = {
+    ...clean,
+    id: "youtube-tracked",
+    title: "Tracked YouTube URL",
+    url: "https://www.youtube.com/watch?utm_source=foo&v=hoil4ctlTxg&si=share-token&feature=youtu.be",
+  };
+
+  assert.equal(deduplicate([clean, tracked]).length, 1);
+});
+
 test("decodes numeric and named HTML entities from feed text", () => {
   assert.equal(
     decodeHtmlEntities("&#8216;Zelda&#8217; &amp; &#x27;Mario Kart&#x27;"),

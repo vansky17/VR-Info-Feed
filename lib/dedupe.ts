@@ -1,6 +1,28 @@
 import type { FeedItem } from "./types";
 
+function youtubeVideoId(value: string): string | undefined {
+  try {
+    const url = new URL(value);
+    const hostname = url.hostname.toLowerCase().replace(/^(?:www\.|m\.)/, "");
+
+    if (hostname === "youtube.com" && url.pathname === "/watch") {
+      return url.searchParams.get("v") || undefined;
+    }
+
+    if (hostname === "youtu.be") {
+      return url.pathname.split("/").filter(Boolean)[0];
+    }
+  } catch {
+    return undefined;
+  }
+
+  return undefined;
+}
+
 function fingerprint(value: string): string {
+  const videoId = youtubeVideoId(value);
+  if (videoId) return `youtube.com/watch?v=${videoId}`;
+
   return value
     .toLowerCase()
     .replace(/^https?:\/\/(www\.)?/, "")
@@ -22,4 +44,3 @@ export function deduplicate(items: FeedItem[]): FeedItem[] {
     return true;
   });
 }
-
