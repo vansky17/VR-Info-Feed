@@ -145,7 +145,7 @@ export function Dashboard({ initialItems, initialMode }: { initialItems: FeedIte
       <main id="top">
         <section className="hero">
           <div className="eyebrow"><CircleDot size={14} /> XR news feed</div>
-          <h1>The signal inside<br /><em>spatial computing.</em></h1>
+          <h1>XR news from across<br /><em>spatial computing.</em></h1>
           <p>A focused stream of developments across virtual, augmented, and mixed reality.</p>
           <div className="hero-meta">
             <span><Radio size={14} /> {mode === "live" ? "Live ingestion" : "Preview mode"}</span>
